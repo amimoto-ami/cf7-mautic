@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Contact Form 7 Mautic Extention
  * Version: 0.0.1
- * Description: Send Contacf Form 7 form data to Mautic lead list.
+ * Description: Simple extention to subscribe Contact Form 7's information to Mautic Form.
  * Author: hideokamoto
  * Author URI: http://wp-kyoto.net/
  * Plugin URI: PLUGIN SITE HERE
