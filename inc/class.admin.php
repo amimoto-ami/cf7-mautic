@@ -118,13 +118,29 @@ class CF7_Mautic_Admin extends CF7_Mautic {
 			'offset' => 0,
 		);
 		$forms = WPCF7_ContactForm::find( $cf7_args );
-		echo $this->_get_cf7_form_select_box ( $forms );
-		echo "<input type='text' name='cf7_mautic_settings[form_id]' value='". $this->cf7_mautic_settings['form_id']. "'>";
+		$html  = '';
+		$html .= '<table>';
+		$html .= '<thead>';
+		$html .= '<th>'. __( 'No.', self::$text_domain ). '</th>';
+		$html .= '<th>'. __( 'Form Name', self::$text_domain ). '<br/>';
+		$html .= __( '( Contact Form 7 )', self::$text_domain ). '</th>';
+		$html .= '<th>'. __( 'Form ID', self::$text_domain ). '<br/>';
+		$html .= __( '( Mautic )', self::$text_domain ). '</th>';
+		$html .= '</thead><tbody>';
+		for ( $i = 0 ; $i < 5; $i++ ) {
+			$html .= '<tr>';
+			$html .= '<th>'. __( 'Mapping-', self::$text_domain ). $i. '</th>';
+			$html .= '<td>'. $this->_get_cf7_form_select_box ( $forms, $i ). '</td>';
+			$html .= "<td><input type='text' name='cf7_mautic_settings[form_id][{$i}]' value='". $this->cf7_mautic_settings['form_id']. "'></td>";
+			$html .= '</tr>';
+		}
+		$html .= '</tbody></table>';
+		echo $html;
 	}
 
-	private function _get_cf7_form_select_box ( $forms ) {
+	private function _get_cf7_form_select_box ( $forms, $i ) {
 		$html  = '';
-		$html .= "<select name=''>";
+		$html .= "<select name='cf7_mautic_settings[cf7_id][{$i}]'>";
 		foreach ( $forms as $form ) {
 			$html .= "<option value='". $form->id(). "'>". $form->title(). '</option>';
 		}
