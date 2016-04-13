@@ -111,7 +111,25 @@ class CF7_Mautic_Admin extends CF7_Mautic {
 		if ( ! isset( $this->cf7_mautic_settings['form_id'] ) ) {
 			$this->cf7_mautic_settings['form_id'] = '';
 		}
+		$cf7_args = array(
+			'posts_per_page' => -1,
+			'orderby' => 'title',
+			'order' => 'ASC',
+			'offset' => 0,
+		);
+		$forms = WPCF7_ContactForm::find( $cf7_args );
+		echo $this->_get_cf7_form_select_box ( $forms );
 		echo "<input type='text' name='cf7_mautic_settings[form_id]' value='". $this->cf7_mautic_settings['form_id']. "'>";
+	}
+
+	private function _get_cf7_form_select_box ( $forms ) {
+		$html  = '';
+		$html .= "<select name=''>";
+		foreach ( $forms as $form ) {
+			$html .= "<option value='". $form->id(). "'>". $form->title(). '</option>';
+		}
+		$html .= '</select>';
+		return $html;
 	}
 
 	/**
