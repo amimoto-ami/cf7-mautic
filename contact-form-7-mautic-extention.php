@@ -1,16 +1,20 @@
 <?php
 /**
- * Plugin Name: Contact form 7 Mautic Extention
+ * Plugin Name: Contact Form 7 Mautic Extention
  * Version: 0.0.1
- * Description: PLUGIN DESCRIPTION HERE
- * Author: YOUR NAME HERE
- * Author URI: YOUR SITE HERE
+ * Description: Send Contacf Form 7 form data to Mautic lead list.
+ * Author: hideokamoto
+ * Author URI: http://wp-kyoto.net/
  * Plugin URI: PLUGIN SITE HERE
  * Text Domain: contact-form-7-mautic-extention
  * Domain Path: /languages
  * @package Contact-form-7-mautic-extention
  */
 
+/**
+ * If Contact Form 7 is deactivated,
+ * This Plugin doesn't work
+ **/
 if ( ! mautic_is_activate_cf7() ) {
 	return;
 }
