@@ -152,9 +152,10 @@ class CF7_Mautic_Admin extends CF7_Mautic {
 			$selected = false;
 		}
 		$html .= "<select name='cf7_mautic_settings[cf7_id][{$i}]'>";
+		$html .= "<option value='false'". selected( $selected, false, false ). '>'. __( 'none', self::$text_domain ). '</option>';
 		foreach ( $forms as $form ) {
 			$id = $form->id();
-			$html .= "<option value='{$id}'". selected( $selected, $id, false ). ">". $form->title(). '</option>';
+			$html .= "<option value='{$id}'". selected( $selected, $id, false ). '>'. $form->title(). '</option>';
 		}
 		$html .= '</select>';
 		return $html;

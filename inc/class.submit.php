@@ -52,13 +52,20 @@ class CF7_Mautic_Submit extends CF7_Mautic {
 		return apply_filters( 'CF7_Mautic_query_mapping', $query );
 	}
 
+	private function _add_mautic_form_id( $query ) {
+		$cf7_form_id = $query['_wpcf7'];
+		$settings = get_option( 'cf7_mautic_settings' );
+		$key = array_search( $cf7_form_id, $settings['cf7_id'] );
+		$query['formId'] = $settings['form_id'][ $key ];
+		return $query;
+	}
+
 	private function _subscribe( $query ) {
 		$ip = $this->_get_ip();
-		$settings = get_option( 'cf7_mautic_settings' );
 		if ( ! isset( $query['return'] ) ) {
 			$query['return'] = get_home_url();
 		}
-		$query['formId'] = $settings['form_id'];
+		$query = $this->_add_mautic_form_id( $query );
 		$data = array(
 			'mauticform' => $query,
 		);
