@@ -1,4 +1,18 @@
 <?php
+/**
+ * POST to Mautic
+ *
+ * @package CF7_Mautic
+ * @author hideokamoto
+ * @since 0.0.1
+ **/
+
+/**
+ * POST to Mautic Class
+ *
+ * @class CF7_Mautic_Submit
+ * @since 0.0.1
+ */
 class CF7_Mautic_Submit extends CF7_Mautic {
 	/**
 	 * Instance Class
@@ -25,7 +39,7 @@ class CF7_Mautic_Submit extends CF7_Mautic {
 	/**
 	 * Get Instance Class
 	 *
-	 * @return CF7_Mautic_Admin
+	 * @return CF7_Mautic_Submit
 	 * @since 0.0.1
 	 */
 	public static function get_instance() {
@@ -36,15 +50,28 @@ class CF7_Mautic_Submit extends CF7_Mautic {
 		return self::$instance;
 	}
 
+	/**
+	 * Subscribe form param to Mautic
+	 *
+	 * @param object $cf7 Contact Form 7's POST Object
+	 * @return object
+	 * @since 0.0.1
+	 */
 	public function send_cf7_to_mautic( $cf7 ) {
-		$query = $this->_create_query( $cf7 );
+		$query = $this->_create_query();
 		if ( $query ) {
 			$this->_subscribe( $query );
 		}
 		return $cf7;
 	}
 
-	private function _create_query( $cf7 ) {
+	/**
+	 * Create query form Contact Form 7's post params
+	 *
+	 * @return array
+	 * @since 0.0.1
+	 */
+	private function _create_query() {
 		$query = array();
 		if ( $submission = WPCF7_Submission::get_instance() ) {
 			$query = $submission->get_posted_data();
@@ -52,6 +79,13 @@ class CF7_Mautic_Submit extends CF7_Mautic {
 		return apply_filters( 'CF7_Mautic_query_mapping', $query );
 	}
 
+	/**
+	 * Add Mautic Form ID
+	 *
+	 * @param array $query POST query
+	 * @return array
+	 * @since 0.0.1
+	 */
 	private function _add_mautic_form_id( $query ) {
 		$cf7_form_id = $query['_wpcf7'];
 		$settings = get_option( 'cf7_mautic_settings' );
@@ -60,6 +94,12 @@ class CF7_Mautic_Submit extends CF7_Mautic {
 		return $query;
 	}
 
+	/**
+	 * POST to Mautic
+	 *
+	 * @param array $query POST query
+	 * @since 0.0.1
+	 */
 	private function _subscribe( $query ) {
 		$ip = $this->_get_ip();
 		if ( ! isset( $query['return'] ) ) {
@@ -88,6 +128,12 @@ class CF7_Mautic_Submit extends CF7_Mautic {
 		}
 	}
 
+	/**
+	 * Get User's IP
+	 *
+	 * @return string
+	 * @since 0.0.1
+	 */
 	private function _get_ip() {
 		$ip_list = [
 			'HTTP_CLIENT_IP',

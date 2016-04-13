@@ -37,7 +37,7 @@ class CF7_Mautic_Admin extends CF7_Mautic {
 
 	/**
 	 * Constructer
-	 * Set text domain on class
+	 * Set text domain & WP_Option's data on class
 	 *
 	 * @since 0.0.1
 	 */
@@ -143,6 +143,15 @@ class CF7_Mautic_Admin extends CF7_Mautic {
 		echo $html;
 	}
 
+	/**
+	 * get select box html
+	 *
+	 * @access private
+	 * @return string
+	 * @param array $forms CF7 Form Object
+	 * @param int $i row number
+	 * @since 0.0.1
+	 */
 	private function _get_cf7_form_select_box ( $forms, $i ) {
 		$html  = '';
 

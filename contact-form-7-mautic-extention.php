@@ -25,14 +25,31 @@ if ( ! mautic_is_activate_cf7() ) {
 	$CF7_Mautic->init();
 }
 
+/**
+ * Base Class
+ *
+ * @class CF7_Mautic
+ * @since 0.0.1
+ */
 class CF7_Mautic {
-	private $Base;
+	/**
+	 * Instance Class
+	 * @access private
+	 */
 	private static $instance;
+
+	/**
+	 * text domain
+	 * @access private
+	 */
 	private static $text_domain;
 
-	private function __construct() {
-	}
-
+	/**
+	 * Get Instance
+	 *
+	 * @since 0.0.1
+	 * @return CF7_Mautic
+	 */
 	public static function get_instance() {
 		if ( ! isset( self::$instance ) ) {
 			$c = __CLASS__;
@@ -57,6 +74,11 @@ class CF7_Mautic {
 		return $text_domain;
 	}
 
+	/**
+	 * Initilize Plugin Settings
+	 *
+	 * @since 0.0.1
+	 */
 	public function init() {
 		$admin = CF7_Mautic_Admin::get_instance();
 		add_action( 'admin_menu', array( $admin, 'add_admin_menu' ) );
