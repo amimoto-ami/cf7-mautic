@@ -1,5 +1,5 @@
 <?php
-class Mauticommerce_Order extends Mauticommerce {
+class CF7_Mautic_Submit extends CF7_Mautic {
 	/**
 	 * Instance Class
 	 * @access private
@@ -19,13 +19,13 @@ class Mauticommerce_Order extends Mauticommerce {
 	 * @since 0.0.1
 	 */
 	private function __construct() {
-		self::$text_domain = Mauticommerce::text_domain();
+		self::$text_domain = CF7_Mautic::text_domain();
 	}
 
 	/**
 	 * Get Instance Class
 	 *
-	 * @return Mauticommerce_Admin
+	 * @return CF7_Mautic_Admin
 	 * @since 0.0.1
 	 */
 	public static function get_instance() {
@@ -36,33 +36,25 @@ class Mauticommerce_Order extends Mauticommerce {
 		return self::$instance;
 	}
 
-	public function subscribe_to_mautic( $order_id, $status = 'new', $new_status = 'pending' ) {
-		$order = wc_get_order( $order_id );
-		$query = $this->_create_query( $order );
-		$this->_subscribe( $query );
+	public function send_cf7_to_mautic( $cf7 ) {
+		$query = $this->_create_query( $cf7 );
+		if ( $query ) {
+			$this->_subscribe( $query );
+		}
+		return $cf7;
 	}
 
-	private function _create_query( $order ) {
-		$query = array(
-			'address1' => $order->billing_address_1,
-			'address2' => $order->billing_address_2,
-			'city' => $order->billing_city,
-			'company' => $order->billing_company,
-			'country' => $order->billing_country,
-			'email' => $order->billing_email,
-			'firstname' => $order->billing_first_name,
-			'lastname' => $order->billing_last_name,
-			'phone' => $order->billing_phone,
-			'zipcode' => $order->billing_postcode,
-			'state' => $order->billing_state,
-			'order_id' => $order->id,
-		);
-		return apply_filters( 'mauticommerce_query_mapping', $query );
+	private function _create_query( $cf7 ) {
+		$query = array();
+		if ( $submission = WPCF7_Submission::get_instance() ) {
+			$query = $submission->get_posted_data();
+		}
+		return apply_filters( 'CF7_Mautic_query_mapping', $query );
 	}
 
 	private function _subscribe( $query ) {
 		$ip = $this->_get_ip();
-		$settings = get_option( 'mauticommece_settings' );
+		$settings = get_option( 'cf7_mautic_settings' );
 		if ( ! isset( $query['return'] ) ) {
 			$query['return'] = get_home_url();
 		}
@@ -71,7 +63,6 @@ class Mauticommerce_Order extends Mauticommerce {
 			'mauticform' => $query,
 		);
 		$url = path_join( $settings['url'], "form/submit?formId={$settings['form_id']}" );
-
 		$response = wp_remote_post(
 			$url,
 			array(
@@ -86,7 +77,7 @@ class Mauticommerce_Order extends Mauticommerce {
 		);
 		if ( is_wp_error( $response ) ) {
 			$error_message = $response->get_error_message();
-			error_log( "MautiCommerce Error: $error_message" );
+			error_log( "CF7_Mautic Error: $error_message" );
 		}
 	}
 

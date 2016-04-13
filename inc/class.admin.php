@@ -2,7 +2,7 @@
 /**
  * Show Admin Panel Class
  *
- * @package Mauticommerce
+ * @package CF7_Mautic
  * @author hideokamoto
  * @since 0.0.1
  **/
@@ -13,10 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Admin Page Class
  *
- * @class Mauticommerce_Admin
+ * @class CF7_Mautic_Admin
  * @since 0.0.1
  */
-class Mauticommerce_Admin extends Mauticommerce {
+class CF7_Mautic_Admin extends CF7_Mautic {
 	/**
 	 * Instance Class
 	 * @access private
@@ -30,10 +30,10 @@ class Mauticommerce_Admin extends Mauticommerce {
 	private static $text_domain;
 
 	/**
-	 * WP_Options Param ( mauticommece_settings )
+	 * WP_Options Param ( cf7_mautic_settings )
 	 * @access private
 	 */
-	private $mauticommece_settings = array();
+	private $cf7_mautic_settings = array();
 
 	/**
 	 * Constructer
@@ -42,14 +42,14 @@ class Mauticommerce_Admin extends Mauticommerce {
 	 * @since 0.0.1
 	 */
 	private function __construct() {
-		self::$text_domain = Mauticommerce::text_domain();
-		$this->mauticommece_settings = get_option( 'mauticommece_settings' );
+		self::$text_domain = CF7_Mautic::text_domain();
+		$this->cf7_mautic_settings = get_option( 'cf7_mautic_settings' );
 	}
 
 	/**
 	 * Get Instance Class
 	 *
-	 * @return Mauticommerce_Admin
+	 * @return CF7_Mautic_Admin
 	 * @since 0.0.1
 	 */
 	public static function get_instance() {
@@ -79,26 +79,26 @@ class Mauticommerce_Admin extends Mauticommerce {
 	 * @since 0.0.1
 	 */
 	private function _register_admin_panels() {
-		register_setting( 'MautiCommerce', 'mauticommece_settings' );
+		register_setting( 'CF7_Mautic', 'cf7_mautic_settings' );
 		add_settings_section(
-			'mauticommece_RelatedScore_settings',
+			'cf7_mautic_RelatedScore_settings',
 			__( 'Settings', self::$text_domain ),
-			array( $this, 'mauticommece_settings_url_section_callback' ),
-			'MautiCommerce'
+			array( $this, 'cf7_mautic_settings_url_section_callback' ),
+			'CF7_Mautic'
 		);
 		add_settings_field(
 			'url',
 			__( 'Mautic URL', self::$text_domain ),
 			array( $this, 'mautic_url_render' ),
-			'MautiCommerce',
-			'mauticommece_RelatedScore_settings'
+			'CF7_Mautic',
+			'cf7_mautic_RelatedScore_settings'
 		);
 		add_settings_field(
 			'form_id',
 			__( 'Mautic Form ID', self::$text_domain ),
 			array( $this, 'mautic_form_id_render' ),
-			'MautiCommerce',
-			'mauticommece_RelatedScore_settings'
+			'CF7_Mautic',
+			'cf7_mautic_RelatedScore_settings'
 		);
 	}
 
@@ -108,10 +108,10 @@ class Mauticommerce_Admin extends Mauticommerce {
 	 * @since 0.0.1
 	 */
 	public function mautic_form_id_render() {
-		if ( ! isset( $this->mauticommece_settings['form_id'] ) ) {
-			$this->mauticommece_settings['form_id'] = '';
+		if ( ! isset( $this->cf7_mautic_settings['form_id'] ) ) {
+			$this->cf7_mautic_settings['form_id'] = '';
 		}
-		echo "<input type='text' name='mauticommece_settings[form_id]' value='". $this->mauticommece_settings['form_id']. "'>";
+		echo "<input type='text' name='cf7_mautic_settings[form_id]' value='". $this->cf7_mautic_settings['form_id']. "'>";
 	}
 
 	/**
@@ -120,18 +120,18 @@ class Mauticommerce_Admin extends Mauticommerce {
 	 * @since 0.0.1
 	 */
 	public function mautic_url_render() {
-		if ( ! isset( $this->mauticommece_settings['url'] ) ) {
-			$this->mauticommece_settings['url'] = '';
+		if ( ! isset( $this->cf7_mautic_settings['url'] ) ) {
+			$this->cf7_mautic_settings['url'] = '';
 		}
-		echo "<input type='url' name='mauticommece_settings[url]' value='". $this->mauticommece_settings['url']. "' style='width:100%;'>";
+		echo "<input type='url' name='cf7_mautic_settings[url]' value='". $this->cf7_mautic_settings['url']. "' style='width:100%;'>";
 	}
 
 	/**
-	 * echo Search Score Field Dmauticommeceiption
+	 * echo Search Score Field Dcf7_mauticiption
 	 *
 	 * @since 0.0.1
 	 */
-	public function mauticommece_settings_url_section_callback() {
+	public function cf7_mautic_settings_url_section_callback() {
 		echo __( 'Set Mautic Information.', self::$text_domain );
 	}
 
@@ -140,11 +140,11 @@ class Mauticommerce_Admin extends Mauticommerce {
 	 *
 	 * @since 0.0.1
 	 */
-	public function mauticommece_options() {
-		echo '<h2>Mauticommece</h2>';
+	public function cf7_mautic_options() {
+		echo '<h2>CF7 Mautic</h2>';
 		echo "<form action='options.php' method='post'>";
-		settings_fields( 'MautiCommerce' );
-		do_settings_sections( 'MautiCommerce' );
+		settings_fields( 'CF7_Mautic' );
+		do_settings_sections( 'CF7_Mautic' );
 		submit_button();
 		echo '</form>';
 	}
@@ -155,7 +155,7 @@ class Mauticommerce_Admin extends Mauticommerce {
 	 * @since 0.0.1
 	 */
 	public function add_admin_menu() {
-		add_options_page( 'Mauticommece', 'Mauticommece', 'manage_options', 'mauticommece', array( $this, 'mauticommece_options' ) );
+		add_options_page( 'CF7 Mautic', 'CF7 Mautic', 'manage_options', 'cf7_mautic', array( $this, 'cf7_mautic_options' ) );
 	}
 
 }
