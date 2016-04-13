@@ -11,7 +11,7 @@
  * @package Contact-form-7-mautic-extention
  */
 
-if ( ! mautic_is_activate_cf7() {
+if ( ! mautic_is_activate_cf7() ) {
 	return;
 }
 
