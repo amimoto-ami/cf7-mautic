@@ -131,7 +131,12 @@ class CF7_Mautic_Admin extends CF7_Mautic {
 			$html .= '<tr>';
 			$html .= '<th>'. __( 'Mapping-', self::$text_domain ). $i. '</th>';
 			$html .= '<td>'. $this->_get_cf7_form_select_box ( $forms, $i ). '</td>';
-			$html .= "<td><input type='text' name='cf7_mautic_settings[form_id][{$i}]' value='". $this->cf7_mautic_settings['form_id']. "'></td>";
+			if ( isset( $this->cf7_mautic_settings['form_id'] ) && isset( $this->cf7_mautic_settings['form_id'][ $i ] ) ) {
+				$val = $this->cf7_mautic_settings['form_id'][ $i ];
+			} else {
+				$val = '';
+			}
+			$html .= "<td><input type='text' name='cf7_mautic_settings[form_id][{$i}]' value='{$val}'></td>";
 			$html .= '</tr>';
 		}
 		$html .= '</tbody></table>';
@@ -140,9 +145,16 @@ class CF7_Mautic_Admin extends CF7_Mautic {
 
 	private function _get_cf7_form_select_box ( $forms, $i ) {
 		$html  = '';
+
+		if ( isset( $this->cf7_mautic_settings['cf7_id'] ) && isset( $this->cf7_mautic_settings['cf7_id'][ $i ] ) ) {
+			$selected = $this->cf7_mautic_settings['cf7_id'][ $i ];
+		} else {
+			$selected = false;
+		}
 		$html .= "<select name='cf7_mautic_settings[cf7_id][{$i}]'>";
 		foreach ( $forms as $form ) {
-			$html .= "<option value='". $form->id(). "'>". $form->title(). '</option>';
+			$id = $form->id();
+			$html .= "<option value='{$id}'". selected( $selected, $id, false ). ">". $form->title(). '</option>';
 		}
 		$html .= '</select>';
 		return $html;
