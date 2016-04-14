@@ -1,0 +1,70 @@
+# Copyright (C) 2016 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/cf7-mautic-extention\n"
+"POT-Creation-Date: 2016-04-14 10:29:29+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: grunt-wp-i18n 0.5.4\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+
+#: inc/class.admin.php:85
+msgid "Settings"
+msgstr ""
+
+#: inc/class.admin.php:91
+msgid "Mautic URL"
+msgstr ""
+
+#: inc/class.admin.php:98
+msgid "Mautic Form ID"
+msgstr ""
+
+#: inc/class.admin.php:124
+msgid "No."
+msgstr ""
+
+#: inc/class.admin.php:125
+msgid "Form Name"
+msgstr ""
+
+#: inc/class.admin.php:126
+msgid "( Contact Form 7 )"
+msgstr ""
+
+#: inc/class.admin.php:127
+msgid "Form ID"
+msgstr ""
+
+#: inc/class.admin.php:128
+msgid "( Mautic )"
+msgstr ""
+
+#: inc/class.admin.php:132
+msgid "Mapping-"
+msgstr ""
+
+#: inc/class.admin.php:164
+msgid "none"
+msgstr ""
+
+#: inc/class.admin.php:191
+msgid "Set Mautic Information."
+msgstr ""

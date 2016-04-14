@@ -7,31 +7,12 @@ module.exports = function( grunt ) {
 
 		pkg: grunt.file.readJSON( 'package.json' ),
 
-		addtextdomain: {
-			options: {
-				textdomain: 'contact-form-7-mautic-extention',
-			},
-			target: {
-				files: {
-					src: [ '*.php', '**/*.php', '!node_modules/**', '!php-tests/**', '!bin/**' ]
-				}
-			}
-		},
-
-		wp_readme_to_markdown: {
-			your_target: {
-				files: {
-					'README.md': 'readme.txt'
-				}
-			},
-		},
-
 		makepot: {
 			target: {
 				options: {
 					domainPath: '/languages',
-					mainFile: 'contact-form-7-mautic-extention.php',
-					potFilename: 'contact-form-7-mautic-extention.pot',
+					mainFile: 'cf7-mautic.php',
+					potFilename: 'cf7-mautic.pot',
 					potHeaders: {
 						poedit: true,
 						'x-poedit-keywordslist': true
@@ -44,9 +25,7 @@ module.exports = function( grunt ) {
 	} );
 
 	grunt.loadNpmTasks( 'grunt-wp-i18n' );
-	grunt.loadNpmTasks( 'grunt-wp-readme-to-markdown' );
-	grunt.registerTask( 'i18n', ['addtextdomain', 'makepot'] );
-	grunt.registerTask( 'readme', ['wp_readme_to_markdown'] );
+	grunt.registerTask( 'i18n', [ 'makepot'] );
 
 	grunt.util.linefeed = '\n';
 
