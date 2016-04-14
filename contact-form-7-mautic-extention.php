@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name: Contact Form 7 Mautic Extention
+ * Plugin Name: CF7 Mautic Extention
  * Version: 0.0.1
  * Description: Simple extention to subscribe Contact Form 7's information to Mautic Form.
  * Author: hideokamoto
  * Author URI: http://wp-kyoto.net/
- * Plugin URI: PLUGIN SITE HERE
- * Text Domain: contact-form-7-mautic-extention
+ * Plugin URI: https://github.com/megumiteam/cf7-mautic/
+ * Text Domain: cf7-mautic-extention
  * Domain Path: /languages
- * @package Contact-form-7-mautic-extention
+ * @package Cf7-mautic-extention
  */
 
 /**

@@ -1,4 +1,4 @@
-=== Contact Form 7 Mautic Extention ===
+=== CF7 Mautic Extention ===
 Contributors: megumithemes,hideokamoto
 Tags: marketing,mautic,form
 Requires at least: 4.4.2
