@@ -17,6 +17,9 @@ Mautic is marketing automation software (email, social & more).
 
 You can make customer lead list that come fron your Contact Form 7's form.
 
+[How it works](https://github.com/megumiteam/cf7-mautic/wiki/How-It-Works)
+[How to setup](https://github.com/megumiteam/cf7-mautic/wiki/Set-Up-Plugin)
+
 == Installation ==
 
 1. Upload this directlies to the `/wp-content/plugins/` directory
