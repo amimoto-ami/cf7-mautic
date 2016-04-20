@@ -3,7 +3,7 @@ Contributors: megumithemes,hideokamoto
 Tags: marketing,mautic,form
 Requires at least: 4.4.2
 Tested up to:4.4.2
-Stable tag: 0.0.1
+Stable tag: 0.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,10 +32,13 @@ Then, you can see customer information in Mautic.
 
 == Changelog ==
 
-= 0.1 =
+= 0.0.2 =
+* Bug Fix
+
+= 0.0.1 =
 * Initialize Release
 
 == Upgrade Notice ==
 
-= 0.1 =
-* Initialize Release
+= 0.0.2 =
+* Bug Fix

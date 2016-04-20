@@ -105,6 +105,7 @@ class CF7_Mautic_Submit extends CF7_Mautic {
 		if ( ! isset( $query['return'] ) ) {
 			$query['return'] = get_home_url();
 		}
+		$settings = get_option( 'cf7_mautic_settings' );
 		$query = $this->_add_mautic_form_id( $query );
 		$data = array(
 			'mauticform' => $query,
@@ -125,6 +126,7 @@ class CF7_Mautic_Submit extends CF7_Mautic {
 		if ( is_wp_error( $response ) ) {
 			$error_message = $response->get_error_message();
 			error_log( "CF7_Mautic Error: $error_message" );
+			error_log( "      posted url: $url" );
 		}
 	}
 

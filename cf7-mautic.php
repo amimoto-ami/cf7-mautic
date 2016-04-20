@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: CF7 Mautic Extention
- * Version: 0.0.1
+ * Version: 0.0.2
  * Description: Simple extention to subscribe Contact Form 7's information to Mautic Form.
  * Author: hideokamoto
  * Author URI: http://wp-kyoto.net/
