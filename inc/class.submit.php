@@ -107,6 +107,7 @@ class CF7_Mautic_Submit extends CF7_Mautic {
 		}
 		$settings = get_option( 'cf7_mautic_settings' );
 		$query = $this->_add_mautic_form_id( $query );
+		$query = $this->_remove_hyphen( $query );
 		$data = array(
 			'mauticform' => $query,
 		);
@@ -128,6 +129,21 @@ class CF7_Mautic_Submit extends CF7_Mautic {
 			error_log( "CF7_Mautic Error: $error_message" );
 			error_log( "      posted url: $url" );
 		}
+	}
+
+	/**
+	 * Remove hyphen to fields
+	 *
+	 * @return string
+	 * @since 0.0.3
+	 */
+	private function _remove_hyphen( $queries ) {
+		$return = array();
+		foreach ( $queries as $label => $value ) {
+			$label = str_replace( '-', '', $label );
+			$return[ $label ] = $value;
+		}
+		return $return;
 	}
 
 	/**
