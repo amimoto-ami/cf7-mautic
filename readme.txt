@@ -1,5 +1,5 @@
-=== CF7 Mautic Extention ===
-Contributors: megumithemes,hideokamoto
+=== CF7 Mautic Extension ===
+Contributors: megumithemes,hideokamoto,kel-dc
 Tags: marketing,mautic,form
 Requires at least: 4.4.2
 Tested up to:4.4.2
@@ -7,31 +7,29 @@ Stable tag: 0.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Simple extention to subscribe Contact Form 7's information to Mautic Form.
+Simple extension to subscribe Contact Form 7's information to Mautic Form.
 
 == Description ==
 
-This is Contact Form 7's extention that connecting to Mautic.
+This is plugin Contact Form 7's extension connecting to Mautic (a marketing automation software - email, social & more).
 
-Mautic is marketing automation software (email, social & more).
-
-You can make customer lead list that come fron your Contact Form 7's form.
+You can easily create customer lead list from what's received from Contact Form 7 form.
 
 [How it works](https://github.com/megumiteam/cf7-mautic/wiki/How-It-Works)
 [How to setup](https://github.com/megumiteam/cf7-mautic/wiki/Set-Up-Plugin)
 
 == Installation ==
 
-1. Upload this directlies to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. And You have to set following information.
+1. Upload this directory to `/wp-content/plugins/` directory.
+2. Activate the plugin through the 'Plugins' menu in WordPress.
+3. Set following information:
 
-|Name|Descrtiption|Example|
+|Name|Description|Example|
 |:--|:--|:--|
 |Mautic URL|Your Mautic Domain|https://mautic.example.com/|
 |Mautic Form Mapping|Mapping Your Mautic Form & Contact Form 7's form|--|
 
-Then, you can see customer information in Mautic.
+Then, you can see the customer information in Mautic.
 
 == Changelog ==
 
