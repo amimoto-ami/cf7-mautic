@@ -1,5 +1,5 @@
 === CF7 Mautic Extension ===
-Contributors: megumithemes,hideokamoto,kel-dc
+Contributors: amimotoami,megumithemes,hideokamoto,kel-dc
 Tags: marketing,mautic,form
 Requires at least: 4.4.2
 Tested up to:4.4.2
