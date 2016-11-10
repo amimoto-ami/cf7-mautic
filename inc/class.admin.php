@@ -10,6 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
+if ( ! class_exists( 'CF7_Mautic' ) ) {
+	return;
+}
 /**
  * Admin Page Class
  *

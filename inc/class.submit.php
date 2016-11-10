@@ -111,7 +111,7 @@ class CF7_Mautic_Submit extends CF7_Mautic {
 		$data = array(
 			'mauticform' => $query,
 		);
-		$url = path_join( $settings['url'], "form/submit?formId={$settings['form_id']}" );
+		$url = path_join( $settings['url'], "form/submit?formId={$query['formId']}" );
 		$response = wp_remote_post(
 			$url,
 			array(
