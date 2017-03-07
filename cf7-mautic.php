@@ -40,7 +40,10 @@ function cf7_mautic_init( ) {
 function cf7_mautic_bootstrap() {
 
 	$php_checker = new CF7_Mautic_PHP_Checker();
+	$php_checker->run();
+
 	$cf7_checker = new CF7_Mautic_CF7_Checker();
+	$cf7_checker->run();
 
 	if ( true === $php_checker->get_result() and true === $cf7_checker->get_result() ) {
 		cf7_mautic_init();

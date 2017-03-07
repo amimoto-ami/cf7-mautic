@@ -9,9 +9,8 @@ abstract class CF7_Mautic_Environment_Checker {
 	 */
 	private $result = false;
 
-	public function __construct() {
+	public function run() {
 		$this->result = $this->check();
-
 		add_action( 'admin_notices', array( $this, 'admin_notices') );
 	}
 
