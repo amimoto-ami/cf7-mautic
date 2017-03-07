@@ -15,9 +15,8 @@ class CF7_Mautic_CF7_Checker extends CF7_Mautic_Environment_Checker {
 	 * @return bool|WP_Error
 	 */
 	public function check() {
-		$active_plugins = get_option( 'active_plugins' );
-		$plugin = 'contact-form-7/wp-contact-form-7.php';
-		if ( in_array( $plugin, $active_plugins, true ) and file_exists( WP_PLUGIN_DIR . '/' . $plugin ) ) {
+
+		if ( defined( 'WPCF7_PLUGIN' ) and 'contact-form-7/wp-contact-form-7.php' === plugin_basename( WPCF7_PLUGIN ) ) {
 			return true;
 		}
 
