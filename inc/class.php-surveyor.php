@@ -5,7 +5,7 @@
  *
  * @since 0.1.0
  */
-class CF7_Mautic_PHP_Checker extends CF7_Mautic_Environment_Checker {
+class CF7_Mautic_PHP_Surveyor extends CF7_Mautic_Environment_Surveyor {
 
 	/**
 	 * Support PHP ver.

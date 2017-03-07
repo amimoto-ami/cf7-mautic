@@ -1,6 +1,6 @@
 <?php
 
-abstract class CF7_Mautic_Environment_Checker {
+abstract class CF7_Mautic_Environment_Surveyor {
 
 	private $message = '';
 
