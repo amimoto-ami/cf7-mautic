@@ -22,7 +22,7 @@ define( 'CF7_MAUTIC_ROOT', __FILE__ );
 define( 'CF7_MAUTIC_REQUIRE_PHP_VERSION', $cf7_mautic_plugin_info['minimum_php'] );
 
 
-require_once 'inc/class.abstract-environment-surveyor.php';
+require_once 'inc/class.environment-surveyor.php';
 require_once 'inc/class.php-surveyor.php';
 require_once 'inc/class.cf7-surveyor.php';
 
