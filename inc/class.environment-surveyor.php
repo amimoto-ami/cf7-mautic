@@ -2,26 +2,26 @@
 
 abstract class CF7_Mautic_Environment_Surveyor {
 
-	private $message = '';
-
 	/**
-	 * @var bool|WP_Error
+	 * CF7_Mautic_Environment_Surveyor constructor.
 	 */
-	private $result = false;
-
-	public function run() {
-		$this->result = $this->check();
-		add_action( 'admin_notices', array( $this, 'admin_notices') );
+	public function __construct() {
+		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 	}
 
 	/**
+	 * Execute check.
+	 *
 	 * @return bool|WP_Error
 	 */
-	public function get_result() {
-		return $this->result;
+	public function run() {
+		$result = $this->check();
+		return $result;
 	}
 
 	/**
+	 * Check method.
+	 *
 	 * @return bool|WP_Error
 	 */
 	abstract function check();
@@ -30,10 +30,11 @@ abstract class CF7_Mautic_Environment_Surveyor {
 	 * Display notice on dashboard.
 	 */
 	public function admin_notices() {
-		if ( is_wp_error( $this->result ) ) {
+		$result = $this->check();
+		if ( is_wp_error( $result ) ) {
 			$message = sprintf(
 				__( '[CF7 Mautic Extention] %s', 'cf7-mautic-extention' ),
-				esc_html(  $this->result->get_error_message() )
+				esc_html( $result->get_error_message() )
 			);
 
 			echo sprintf( '<div class="error"><p>%s</p></div>', esc_html( $message ) );

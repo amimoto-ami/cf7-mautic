@@ -26,6 +26,8 @@ class CF7_Mautic_PHP_Surveyor extends CF7_Mautic_Environment_Surveyor {
 	 */
 	public function __construct() {
 
+		parent::__construct();
+
 		if ( defined( 'CF7_MAUTIC_REQUIRE_PHP_VERSION' ) ) {
 			$this->set_support_php_version( CF7_MAUTIC_REQUIRE_PHP_VERSION );
 		}

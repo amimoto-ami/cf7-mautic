@@ -40,17 +40,20 @@ function cf7_mautic_init( ) {
 function cf7_mautic_bootstrap() {
 
 	$php_checker = new CF7_Mautic_PHP_Surveyor();
-	$php_checker->run();
-
 	$cf7_checker = new CF7_Mautic_CF7_Surveyor();
 	if ( defined( 'WPCF7_PLUGIN' ) ) {
 		$cf7_checker->set_cf7_plugin_basename( WPCF7_PLUGIN );
 	}
-	$cf7_checker->run();
 
-	if ( true === $php_checker->get_result() and true === $cf7_checker->get_result() ) {
-		cf7_mautic_init();
+	if ( is_wp_error( $php_checker->run() ) ) {
+		return;
 	}
+
+	if ( is_wp_error( $cf7_checker->run() ) ) {
+		return;
+	}
+
+	cf7_mautic_init();
 
 }
 
