@@ -10,13 +10,14 @@
  * Support PHP Version: 5.6
  * Required Plugin: contact-form-7
  * Domain Path: /languages
+ *
  * @package Cf7-mautic-extention
  */
 
 
 $cf7_mautic_plugin_info = get_file_data( __FILE__, array(
 	'minimum_php' => 'Support PHP Version',
-));
+) );
 
 define( 'CF7_MAUTIC_ROOT', __FILE__ );
 define( 'CF7_MAUTIC_REQUIRE_PHP_VERSION', $cf7_mautic_plugin_info['minimum_php'] );
@@ -27,9 +28,10 @@ require_once 'inc/class.php-surveyor.php';
 require_once 'inc/class.cf7-surveyor.php';
 
 
-add_action( 'plugins_loaded', 'cf7_mautic_bootstrap');
-
-function cf7_mautic_init( ) {
+/**
+ * initialize
+ */
+function cf7_mautic_init() {
 	require_once 'inc/class.cf7-mautic.php';
 	require_once 'inc/class.admin.php';
 	require_once 'inc/class.submit.php';
@@ -37,6 +39,9 @@ function cf7_mautic_init( ) {
 	$cf7_mautic->init();
 }
 
+/**
+ * Bootstrap
+ */
 function cf7_mautic_bootstrap() {
 
 	$php_checker = new CF7_Mautic_PHP_Surveyor();
@@ -52,9 +57,7 @@ function cf7_mautic_bootstrap() {
 	if ( is_wp_error( $cf7_checker->run() ) ) {
 		return;
 	}
-
 	cf7_mautic_init();
-
 }
 
-
+add_action( 'plugins_loaded', 'cf7_mautic_bootstrap' );
