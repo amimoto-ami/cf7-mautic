@@ -63,14 +63,26 @@ function cf7_mautic_check_environments() {
 }
 
 /**
- * Bootstrap
+ * Bootstrap.
  */
 function cf7_mautic_bootstrap() {
 
 	if ( cf7_mautic_check_environments() ) {
 		cf7_mautic_init();
 	}
+}
 
+/**
+ * Check on activation.
+ */
+function cf7_mautic_check_on_activation() {
+
+	if ( ! cf7_mautic_check_environments() ) {
+		deactivate_plugins( plugin_basename( __FILE__ ) );
+		wp_die( 'Opps, CF7 Mautic Extention require PHP 5.6 or higher and contact form 7.' );
+	}
 }
 
 add_action( 'plugins_loaded', 'cf7_mautic_bootstrap' );
+
+register_activation_hook( __FILE__, 'cf7_mautic_check_on_activation' );
