@@ -29,7 +29,7 @@ require_once 'inc/class.cf7-surveyor.php';
 
 
 /**
- * initialize
+ * Initialize.
  */
 function cf7_mautic_init() {
 	require_once 'inc/class.cf7-mautic.php';
@@ -40,24 +40,37 @@ function cf7_mautic_init() {
 }
 
 /**
- * Bootstrap
+ * Check Environments.
+ *
+ * @return bool
  */
-function cf7_mautic_bootstrap() {
-
+function cf7_mautic_check_environments() {
 	$php_checker = new CF7_Mautic_PHP_Surveyor();
+	$php_checker->register_notice();
+
 	$cf7_checker = new CF7_Mautic_CF7_Surveyor();
+	$cf7_checker->register_notice();
+
 	if ( defined( 'WPCF7_PLUGIN' ) ) {
 		$cf7_checker->set_cf7_plugin_basename( WPCF7_PLUGIN );
 	}
 
-	if ( is_wp_error( $php_checker->run() ) ) {
-		return;
+	if ( ! is_wp_error( $php_checker->check() ) and ! is_wp_error( $cf7_checker->check() ) ) {
+		return true;
 	}
 
-	if ( is_wp_error( $cf7_checker->run() ) ) {
-		return;
+	return false;
+}
+
+/**
+ * Bootstrap
+ */
+function cf7_mautic_bootstrap() {
+
+	if ( cf7_mautic_check_environments() ) {
+		cf7_mautic_init();
 	}
-	cf7_mautic_init();
+
 }
 
 add_action( 'plugins_loaded', 'cf7_mautic_bootstrap' );

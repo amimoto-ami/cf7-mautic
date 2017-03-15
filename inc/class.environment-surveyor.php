@@ -6,18 +6,16 @@ abstract class CF7_Mautic_Environment_Surveyor {
 	 * CF7_Mautic_Environment_Surveyor constructor.
 	 */
 	public function __construct() {
-		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+
 	}
 
 	/**
-	 * Execute check.
-	 *
-	 * @return bool|WP_Error
+	 * Register admin notice.
 	 */
-	public function run() {
-		$result = $this->check();
-		return $result;
+	public function register_notice() {
+		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 	}
+
 
 	/**
 	 * Check method.
