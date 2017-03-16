@@ -10,7 +10,7 @@ class Test_CF7_Mautic_CF7_Surveyor extends PHPUnit_Framework_TestCase {
 
 	public function test_check_failure__when_not_installed_cf7() {
 		$checker = new CF7_Mautic_CF7_Surveyor();
-		$this->assertTrue( is_wp_error( $checker->run() ) );
+		$this->assertTrue( is_wp_error( $checker->check() ) );
 	}
 
 	public function test_check_pass_when_installed_cf7() {
@@ -19,7 +19,7 @@ class Test_CF7_Mautic_CF7_Surveyor extends PHPUnit_Framework_TestCase {
 		if ( defined( 'WPCF7_PLUGIN_BASENAME' ) ) {
 			$checker->set_cf7_plugin_basename( WPCF7_PLUGIN_BASENAME );
 		}
-		$this->assertTrue( $checker->run() );
+		$this->assertTrue( $checker->check() );
 	}
 
 }
