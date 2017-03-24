@@ -1,10 +1,10 @@
 === CF7 Mautic Extension ===
-Contributors: amimotoami,megumithemes,hideokamoto,kel-dc,felipeelia
+Contributors: amimotoami,megumithemes,hideokamoto,kel-dc,felipeelia,toro_unit
 Tags: marketing,mautic,form
 Requires at least: 4.4.2
 Support PHP Version: 5.6 or later
-Tested up to:4.6.1
-Stable tag: 0.0.4
+Tested up to:4.7.3
+Stable tag: 0.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,6 +33,9 @@ You can easily create customer lead list from what's received from Contact Form 
 Then, you can see the customer information in Mautic.
 
 == Changelog ==
+
+= 0.0.5 =
+* Bug fix
 
 = 0.0.4 =
 * Bug fix
