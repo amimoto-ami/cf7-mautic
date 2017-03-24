@@ -10,48 +10,29 @@
  * Support PHP Version: 5.6
  * Required Plugin: contact-form-7
  * Domain Path: /languages
+ *
  * @package Cf7-mautic-extention
  */
 
-/**
- * If Contact Form 7 is deactivated,
- * This Plugin doesn't work
- **/
-$this_plugin_info = get_file_data( __FILE__, array(
+
+$cf7_mautic_plugin_info = get_file_data( __FILE__, array(
 	'minimum_php' => 'Support PHP Version',
-));
-if ( ! mautic_is_activate_cf7() ) {
-	$plugin_notice = __(
-		'Oops, this plugin need Contact Form 7 Plugin. Please install & activate it first.',
-		'cf7-mautic-extention'
-	);
-	register_activation_hook(
-		__FILE__,
-		create_function(
-			'',
-			"deactivate_plugins('" . plugin_basename( __FILE__ ) . "'); wp_die('{$plugin_notice}');"
-		)
-	);
-	return;
-} elseif ( version_compare( phpversion(), $this_plugin_info['minimum_php'] ) <= 0 ) {
-	$plugin_notice = sprintf(
-		__(
-			'Oops, this plugin will soon require PHP %1$s or higher. Your PHP version is %2$s',
-			'cf7-mautic-extention'
-		),
-		$this_plugin_info['minimum_php'],
-		phpversion()
-	);
-	register_activation_hook(
-		__FILE__,
-		create_function(
-			'',
-			"deactivate_plugins('" . plugin_basename( __FILE__ ) . "'); wp_die('{$plugin_notice}');"
-		)
-	);
-	return;
-} else {
-	define( 'CF7_MAUTIC_ROOT', __FILE__ );
+) );
+
+define( 'CF7_MAUTIC_ROOT', __FILE__ );
+define( 'CF7_MAUTIC_REQUIRE_PHP_VERSION', $cf7_mautic_plugin_info['minimum_php'] );
+
+
+require_once 'inc/class.environment-surveyor.php';
+require_once 'inc/class.php-surveyor.php';
+require_once 'inc/class.cf7-surveyor.php';
+
+
+/**
+ * Initialize.
+ */
+function cf7_mautic_init() {
+	require_once 'inc/class.cf7-mautic.php';
 	require_once 'inc/class.admin.php';
 	require_once 'inc/class.submit.php';
 	$cf7_mautic = CF7_Mautic::get_instance();
@@ -59,80 +40,49 @@ if ( ! mautic_is_activate_cf7() ) {
 }
 
 /**
- * Base Class
+ * Check Environments.
  *
- * @class CF7_Mautic
- * @since 0.0.1
+ * @return bool
  */
-class CF7_Mautic {
-	/**
-	 * Instance Class
-	 * @access private
-	 */
-	private static $instance;
+function cf7_mautic_check_environments() {
+	$php_checker = new CF7_Mautic_PHP_Surveyor();
+	$php_checker->register_notice();
 
-	/**
-	 * text domain
-	 * @access private
-	 */
-	private static $text_domain;
+	$cf7_checker = new CF7_Mautic_CF7_Surveyor();
+	$cf7_checker->register_notice();
 
-	/**
-	 * Get Instance
-	 *
-	 * @since 0.0.1
-	 * @return CF7_Mautic
-	 */
-	public static function get_instance() {
-		if ( ! isset( self::$instance ) ) {
-			$c = __CLASS__;
-			self::$instance = new $c();
-		}
-		return self::$instance;
+	if ( defined( 'WPCF7_PLUGIN' ) ) {
+		$cf7_checker->set_cf7_plugin_basename( WPCF7_PLUGIN );
 	}
 
-	/**
-	 * Get Plugin text_domain
-	 *
-	 * @return string
-	 * @since 0.0.1
-	 */
-	public static function text_domain() {
-		static $text_domain;
-
-		if ( ! $text_domain ) {
-			$data = get_file_data( CF7_MAUTIC_ROOT , array( 'text_domain' => 'Text Domain' ) );
-			$text_domain = $data['text_domain'];
-		}
-		return $text_domain;
+	if ( ! is_wp_error( $php_checker->check() ) and ! is_wp_error( $cf7_checker->check() ) ) {
+		return true;
 	}
 
-	/**
-	 * Initilize Plugin Settings
-	 *
-	 * @since 0.0.1
-	 */
-	public function init() {
-		$admin = CF7_Mautic_Admin::get_instance();
-		add_action( 'admin_menu', array( $admin, 'add_admin_menu' ) );
-		add_action( 'admin_init', array( $admin, 'settings_init' ) );
-		$submit = CF7_Mautic_Submit::get_instance();
-		add_filter( 'wpcf7_before_send_mail', array( $submit, 'send_cf7_to_mautic' ) );
+	return false;
+}
+
+/**
+ * Bootstrap.
+ */
+function cf7_mautic_bootstrap() {
+
+	if ( cf7_mautic_check_environments() ) {
+		cf7_mautic_init();
 	}
 }
 
 /**
- * Check Contact form 7 Plugin status
- *
- * @since 0.0.1
- * @return bool
+ * Check on activation.
  */
-function mautic_is_activate_cf7() {
-	$active_plugins = get_option( 'active_plugins' );
-	$plugin = 'contact-form-7/wp-contact-form-7.php';
-	if ( false === array_search( $plugin, $active_plugins ) || ! file_exists( WP_PLUGIN_DIR . '/' . $plugin ) ) {
-		return false;
-	} else {
-		return true;
+function cf7_mautic_check_on_activation() {
+
+	if ( ! cf7_mautic_check_environments() ) {
+		deactivate_plugins( plugin_basename( __FILE__ ) );
+		wp_die( 'Opps, CF7 Mautic Extention require PHP 5.6 or higher and contact form 7.' );
 	}
 }
+
+add_action( 'plugins_loaded', 'cf7_mautic_bootstrap' );
+
+register_activation_hook( __FILE__, 'cf7_mautic_check_on_activation' );
