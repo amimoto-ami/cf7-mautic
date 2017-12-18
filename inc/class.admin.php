@@ -130,7 +130,7 @@ class CF7_Mautic_Admin extends CF7_Mautic {
 		$html .= '<th>'. __( 'Form ID', self::$text_domain ). '<br/>';
 		$html .= __( '( Mautic )', self::$text_domain ). '</th>';
 		$html .= '</thead><tbody>';
-		for ( $i = 0 ; $i < 5; $i++ ) {
+		for ( $i = 0 ; $i < count( $forms ); $i++ ) {
 			$html .= '<tr>';
 			$html .= '<th>'. __( 'Mapping-', self::$text_domain ). $i. '</th>';
 			$html .= '<td>'. $this->_get_cf7_form_select_box ( $forms, $i ). '</td>';
