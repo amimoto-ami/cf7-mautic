@@ -154,9 +154,9 @@ class CF7_Mautic_Submit extends CF7_Mautic {
 	 */
 	private function _get_ip() {
 		$ip_list = [
-            'REMOTE_ADDR',
+            'HTTP_X_FORWARDED_FOR',
+			'REMOTE_ADDR',
 			'HTTP_CLIENT_IP',
-			'HTTP_X_FORWARDED_FOR',
 			'HTTP_X_FORWARDED',
 			'HTTP_X_CLUSTER_CLIENT_IP',
 			'HTTP_FORWARDED_FOR',
